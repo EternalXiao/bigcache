@@ -126,6 +126,12 @@ func (c *BigCache) GetWithInfo(key string) ([]byte, Response, error) {
 	return shard.getWithInfo(key, hashedKey)
 }
 
+func (c *BigCache) GetWithTime(key string) ([]byte, uint64, error) {
+	hashedKey := c.hash.Sum64(key)
+	shard := c.getShard(hashedKey)
+	return shard.getWithTime(key, hashedKey)
+}
+
 // Set saves entry under the key
 func (c *BigCache) Set(key string, entry []byte) error {
 	hashedKey := c.hash.Sum64(key)
